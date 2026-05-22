@@ -1,0 +1,217 @@
+const readline = require("readline");
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// Productos ya existentes
+let productos = [
+    { nombre: "Cafe de olla", precio: 45, categoria: "bebida" },
+    { nombre: "Cafe americano", precio: 40, categoria: "bebida" },
+    { nombre: "Pan", precio: 30, categoria: "postre" },
+    { nombre: "Rol de manzana", precio: 30, categoria: "postre" },
+    { nombre: "Frappe", precio: 65, categoria: "bebida" },
+    { nombre: "Pastel", precio: 55, categoria: "postre" }
+];
+
+// AGREGAR
+function agregarProducto() {
+
+    rl.question("Nombre: ", function(nombre) {
+
+        rl.question("Precio: ", function(precio) {
+
+            rl.question("Categoría bebida/postre: ", function(categoria) {
+
+                productos.push({
+                    nombre: nombre,
+                    precio: Number(precio),
+                    categoria: categoria
+                });
+
+                console.log("Producto agregado");
+
+                menu();
+            });
+        });
+    });
+}
+
+// LISTAR
+function listarProductos() {
+
+    console.log("\nPRODUCTOS:");
+
+    for(let i = 0; i < productos.length; i++) {
+
+        console.log(
+            i + " - " +
+            productos[i].nombre +
+            " $" + productos[i].precio +
+            " - " + productos[i].categoria
+        );
+    }
+}
+
+// ELIMINAR
+function eliminarProducto() {
+
+    listarProductos();
+
+    rl.question("\nÍndice a eliminar: ", function(indice) {
+
+        productos.splice(indice, 1);
+
+        console.log("Producto eliminado");
+
+        menu();
+    });
+}
+
+// BUSCAR PRODUCTO CON FIND
+function buscarProducto() {
+
+    rl.question("\nNombre del producto a buscar: ", function(nombre) {
+
+        let productoEncontrado = productos.find(function(producto) {
+            return producto.nombre.toLowerCase() === nombre.toLowerCase();
+        });
+
+        if(productoEncontrado) {
+            console.log("\nProducto encontrado:");
+            console.log(productoEncontrado.nombre + " $" + productoEncontrado.precio + " - " + productoEncontrado.categoria);
+        } else {
+            console.log("\nProducto no encontrado");
+        }
+
+        menu();
+    });
+}
+
+// PRODUCTOS BARATOS CON FILTER
+function productosBaratos() {
+
+    let baratos = productos.filter(function(producto) {
+        return producto.precio <= 50;
+    });
+
+    console.log("\nPRODUCTOS BARATOS:");
+
+    for(let i = 0; i < baratos.length; i++) {
+        console.log(baratos[i].nombre + " $" + baratos[i].precio);
+    }
+
+    menu();
+}
+
+// PRODUCTOS CAROS CON FILTER
+function productosCaros() {
+
+    let caros = productos.filter(function(producto) {
+        return producto.precio > 50;
+    });
+
+    console.log("\nPRODUCTOS CAROS:");
+
+    for(let i = 0; i < caros.length; i++) {
+        console.log(caros[i].nombre + " $" + caros[i].precio);
+    }
+
+    menu();
+}
+
+// BEBIDAS CON FILTER
+function buscarBebidas() {
+
+    let bebidas = productos.filter(function(producto) {
+        return producto.categoria.toLowerCase() === "bebida";
+    });
+
+    console.log("\nBEBIDAS:");
+
+    for(let i = 0; i < bebidas.length; i++) {
+        console.log(bebidas[i].nombre + " $" + bebidas[i].precio);
+    }
+
+    menu();
+}
+
+// POSTRES CON FILTER
+function buscarPostres() {
+
+    let postres = productos.filter(function(producto) {
+        return producto.categoria.toLowerCase() === "postre";
+    });
+
+    console.log("\nPOSTRES:");
+
+    for(let i = 0; i < postres.length; i++) {
+        console.log(postres[i].nombre + " $" + postres[i].precio);
+    }
+
+    menu();
+}
+
+// MENÚ
+function menu() {
+
+    console.log("\nLISTA DE PRODUCTOS");
+
+    console.log("\n1. Agregar");
+    console.log("2. Listar");
+    console.log("3. Eliminar");
+    console.log("4. Buscar producto por nombre");
+    console.log("5. Productos baratos");
+    console.log("6. Productos caros");
+    console.log("7. Bebidas");
+    console.log("8. Postres");
+    console.log("9. Salir");
+
+    rl.question("\nOpción: ", function(opcion) {
+
+        if(opcion == 1) {
+            agregarProducto();
+        }
+
+        else if(opcion == 2) {
+            listarProductos();
+            menu();
+        }
+
+        else if(opcion == 3) {
+            eliminarProducto();
+        }
+
+        else if(opcion == 4) {
+            buscarProducto();
+        }
+
+        else if(opcion == 5) {
+            productosBaratos();
+        }
+
+        else if(opcion == 6) {
+            productosCaros();
+        }
+
+        else if(opcion == 7) {
+            buscarBebidas();
+        }
+
+        else if(opcion == 8) {
+            buscarPostres();
+        }
+
+        else if(opcion == 9) {
+            rl.close();
+        }
+
+        else {
+            console.log("Opción inválida");
+            menu();
+        }
+    });
+}
+
+menu();
