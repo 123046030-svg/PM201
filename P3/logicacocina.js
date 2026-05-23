@@ -5,7 +5,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Productos ya existentes
+// Productos ya existentes Regina
 let productos = [
     { nombre: "Cafe de olla", precio: 45, categoria: "bebida" },
     { nombre: "Cafe americano", precio: 40, categoria: "bebida" },
