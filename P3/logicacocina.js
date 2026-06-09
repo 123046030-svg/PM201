@@ -9,7 +9,7 @@ const rl = readline.createInterface({
 let productos = [
     { nombre: "Cafe de olla", precio: 45, categoria: "bebida" },
     { nombre: "Cafe americano", precio: 40, categoria: "bebida" },
-    { nombre: "Pan", precio: 30, categoria: "postre" },
+    { nombre: "Pancito", precio: 30, categoria: "postre" },
     { nombre: "Rol de manzana", precio: 30, categoria: "postre" },
     { nombre: "Frappe", precio: 65, categoria: "bebida" },
     { nombre: "Pastel", precio: 55, categoria: "postre" }
