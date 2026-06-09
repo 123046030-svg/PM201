@@ -13,7 +13,7 @@ export const Perfil = () => {
         Materia: Programación Móvil
       </Text>
 
-      <Text>Cuatrimestre: 9</Text>
+      <Text>Cuatrimestre: 9no</Text>
     </View>
   );
 };
