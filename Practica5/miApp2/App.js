@@ -1,24 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import {Saludo} from './components/Saludo';
-import {Saludo2} from './components/Saludo2';
-import {Perfil} from './components/Perfil';
+import { StyleSheet, View } from 'react-native';
+
+import { Perfil } from './components/Perfil';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/wave.png')} />
-      <Text>Hola Mundo React Native</Text>
-      
-      <Text>---------------------------</Text>
-      <Saludo />
-      
-      <Text>---------------------------</Text>
-      <Saludo2 />
+      <Perfil
+        nombre="Regina Cortes Vargas"
+        carrera="Ingeniería en Sistemas Computacionales"
+        materia="Programación Móvil"
+        cuatrimestre="9no"
+      />
 
-      <Text>---------------------------</Text>
-      <Perfil />
-      
+      <Perfil
+        nombre="Dalixia de la Torre"
+        carrera="Ingeniería en Sistemas Computacionales"
+        materia="Programación Móvil"
+        cuatrimestre="10mo"
+      />
+
       <StatusBar style="auto" />
     </View>
   );
