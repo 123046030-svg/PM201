@@ -1,35 +1,103 @@
-/* JUSTIFYCOMRNENT: FLEX START
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  SafeAreaView,
+  ScrollView
+} from 'react-native';
 
-import { Perfil } from './components/Perfil';
+import TarjetasScreen from './Screens/TarjetasScreen';
+import Componente1 from './Screens/Componente1';
 
 export default function App() {
+  const [screen, setScreen] = useState('menu');
+
+  // Práctica equipo 1: Lista de tareas
+  const [tareas, setTareas] = useState([
+    'Ir al gym',
+    'Ir a clase',
+    'Pasear a Wisky',
+  ]);
+
+  const agregarTarea = () => {
+    setTareas([...tareas, `Nueva tarea ${tareas.length + 1}`]);
+  };
+
+  if (screen === 'tarjetas') {
+    return (
+      <TarjetasScreen
+        onVolver={() => setScreen('menu')}
+      />
+    );
+  }
+
+  if (screen === 'componente1') {
+    return (
+      <Componente1
+        onVolver={() => setScreen('menu')}
+      />
+    );
+  }
+
+  if (screen === 'tareas') {
+    return (
+      <SafeAreaView style={styles.tareasContainer}>
+        <Text style={styles.titulo}>Lista de tareas</Text>
+
+        <View style={styles.boton}>
+          <Button
+            title="Agregar tarea"
+            onPress={agregarTarea}
+          />
+        </View>
+
+        <ScrollView contentContainerStyle={styles.lista}>
+          {tareas.map((tarea, index) => (
+            <View key={index} style={styles.tarea}>
+              <Text>{tarea}</Text>
+            </View>
+          ))}
+        </ScrollView>
+
+        <View style={styles.boton}>
+          <Button
+            title="Volver al menú"
+            onPress={() => setScreen('menu')}
+          />
+        </View>
+
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
+      <Text style={styles.titulo}>Menú de prácticas</Text>
 
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
+      <View style={styles.boton}>
+        <Button
+          title="Tarjetas"
+          onPress={() => setScreen('tarjetas')}
+        />
+      </View>
 
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
+      <View style={styles.boton}>
+        <Button
+          title="Práctica Componente 1"
+          onPress={() => setScreen('componente1')}
+        />
+      </View>
+
+      <View style={styles.boton}>
+        <Button
+          title="Lista de tareas"
+          onPress={() => setScreen('tareas')}
+        />
+      </View>
 
       <StatusBar style="auto" />
     </View>
@@ -39,383 +107,33 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-});
-*/
-
-
-/* JUSTIFYCOMRNENT: CENTER
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    padding: 25,
     justifyContent: 'center',
   },
 
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-}); */
-
- /* JUSTIFYCONTENT: FLEX-END 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
+  tareasContainer: {
     flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    padding: 25,
   },
 
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
+  titulo: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
+  boton: {
+    marginBottom: 10,
   },
 
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-}); */
-
-/* JUSTIFYCONTENT: SPACE-BETWEEN 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  lista: {
+    paddingTop: 20,
   },
 
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-}); */
-
-/* JUSTIFYCONTENT: SPACE-AROUND 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-}); */
-
-/* JUSTIFYCONTENT: SPACE-EVENLY 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
-  },
-}); 
-*/
-
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-
-import { Perfil } from './components/Perfil';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Perfil
-        nombre="Regina Cortes Vargas"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaNaranja}
-      />
-
-      <Perfil
-        nombre="Dalixia de la Torre"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="10mo"
-        style={styles.tarjetaVerde}
-      />
-
-      <Perfil
-        nombre="Alonso García"
-        carrera="Ingeniería en Sistemas Computacionales"
-        materia="Programación Móvil"
-        cuatrimestre="9no"
-        style={styles.tarjetaAzul}
-      />
-
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-
-  tarjetaNaranja: {
-    backgroundColor: '#ea9969',
-  },
-
-  tarjetaVerde: {
-    backgroundColor: '#a1eec1',
-  },
-
-  tarjetaAzul: {
-    backgroundColor: '#9ec5fe',
+  tarea: {
+    marginBottom: 10,
+    padding: 15,
+    backgroundColor: '#ddd',
+    borderRadius: 8,
   },
 });

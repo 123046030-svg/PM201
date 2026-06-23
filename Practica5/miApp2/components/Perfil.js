@@ -16,8 +16,14 @@ export const Perfil = ({
 
       {mostrar && (
         <>
-          <Text style={styles.carrera}>Carrera: {carrera}</Text>
-          <Text style={styles.otroTexto}>Materia: {materia}</Text>
+          <Text style={styles.carrera}>
+            Carrera: {carrera}
+          </Text>
+
+          <Text style={styles.otroTexto}>
+            Materia: {materia}
+          </Text>
+
           <Text style={styles.otroTexto}>
             Cuatrimestre: {cuatrimestre}
           </Text>
@@ -34,19 +40,21 @@ export const Perfil = ({
 
 const styles = StyleSheet.create({
   tarjeta: {
+    width: 250,
     borderWidth: 2,
     padding: 25,
-    margin: 20,
+    margin: 10,
   },
 
   nombre: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '600',
     textTransform: 'uppercase',
+    marginBottom: 10,
   },
 
   carrera: {
-    fontSize: 18,
+    fontSize: 16,
     color: 'green',
   },
 
