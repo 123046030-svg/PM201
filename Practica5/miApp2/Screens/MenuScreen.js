@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, Button, Switch } from 'react-native';
 import React from 'react';
-
 import TarjetasScreen from './TarjetasScreen';
 import PressableScreen from './PressableScreen';
 import Componente1 from '../Componente1';
+import ComponenteAlert from './ComponenteAlert';
 
 export default function MenuScreen() {
   const [screen, setScreen] = React.useState('menu');
@@ -20,6 +20,9 @@ export default function MenuScreen() {
     case 'pressable':
       return <PressableScreen />;
 
+    case 'alert':
+      return <ComponenteAlert />;
+
     case 'menu':
     default:
       return (
@@ -34,6 +37,8 @@ export default function MenuScreen() {
           />
 
           <Button title="Pressable" onPress={() => setScreen('pressable')} />
+
+          <Button title="Alert" onPress={() => setScreen('alert')} />
 
           <View style={styles.switchContainer}>
             <Text style={styles.texto}>

@@ -9,10 +9,13 @@ import {
   ScrollView,
   Pressable,
   Switch,
+  Alert,
+  Platform,
 } from 'react-native';
 
 import TarjetasScreen from './Screens/TarjetasScreen';
 import Componente1 from './Screens/Componente1';
+import { Componente4_0 } from './Screens/Componente4_0';
 
 export default function App() {
   const [screen, setScreen] = useState('menu');
@@ -30,6 +33,81 @@ export default function App() {
   // Práctica equipo 2: Switch
   const [encendido, setEncendido] = useState(false);
 
+  // Práctica equipo 3: Alert
+  const [message, setMessage] = useState('Sin acción');
+
+  // Práctica equipo 3: Alert
+  // Parche para que Alert funcione correctamente cuando se ejecuta en navegador web.
+  if (Platform.OS === 'web') {
+    Alert.alert = (titular, mensaje, botones) => {
+      if (botones && botones.length > 0) {
+        const resultado = window.confirm(
+          titular + (mensaje ? '\n' + mensaje : '')
+        );
+
+        if (resultado) {
+          const aceptar = botones.find((b) => b.text === 'Aceptar');
+          if (aceptar && aceptar.onPress) {
+            aceptar.onPress();
+          }
+        } else {
+          const cancelar = botones.find((b) => b.style === 'cancel');
+          if (cancelar && cancelar.onPress) {
+            cancelar.onPress();
+          }
+        }
+      } else {
+        window.alert(titular + (mensaje ? '\n' + mensaje : ''));
+      }
+    };
+  }
+
+  // Práctica equipo 3: Alert
+  const createTwoButtonAlert = () =>
+    Alert.alert('Alerta de 2 botones', 'Elige una opción', [
+      {
+        text: 'Cancelar',
+        onPress: () => {
+          setMessage('Presionaste cancelar');
+        },
+        style: 'cancel',
+      },
+      {
+        text: 'Aceptar',
+        onPress: () => {
+          setMessage('Presionaste aceptar');
+        },
+      },
+    ]);
+
+  // Práctica equipo 3: Alert
+  const createThreeButtonAlert = () =>
+    Alert.alert(
+      'Alerta de 3 botones',
+      'Elige una opción',
+      [
+        {
+          text: 'Pregúntame más tarde',
+          onPress: () => setMessage('Pregúntame más tarde'),
+        },
+        {
+          text: 'Cancelar',
+          onPress: () => setMessage('Presionaste cancelar'),
+          style: 'cancel',
+        },
+        {
+          text: 'Aceptar',
+          onPress: () => setMessage('Presionaste aceptar'),
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {
+          setMessage('La alerta se cerró sin elegir botón');
+        },
+      }
+    );
+
   const agregarTarea = () => {
     setTareas([...tareas, `Nueva tarea ${tareas.length + 1}`]);
   };
@@ -40,6 +118,12 @@ export default function App() {
 
   if (screen === 'componente1') {
     return <Componente1 onVolver={() => setScreen('menu')} />;
+  }
+
+  // Práctica equipo 3: TextInput
+  // Aquí se manda llamar el componente Componente4_0.
+  if (screen === 'textinput') {
+    return <Componente4_0 onVolver={() => setScreen('menu')} />;
   }
 
   if (screen === 'pressable') {
@@ -128,6 +212,35 @@ export default function App() {
     );
   }
 
+  // Práctica equipo 3: Alert
+  if (screen === 'alert') {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.titulo}>Componente Alert</Text>
+
+        <Text style={styles.texto}>Estado actual: {message}</Text>
+
+        <View style={styles.boton}>
+          <Button
+            title="Alerta de dos botones"
+            onPress={createTwoButtonAlert}
+          />
+        </View>
+
+        <View style={styles.boton}>
+          <Button
+            title="Alerta de 3 botones"
+            onPress={createThreeButtonAlert}
+          />
+        </View>
+
+        <View style={styles.boton}>
+          <Button title="Volver al menú" onPress={() => setScreen('menu')} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Menú de prácticas</Text>
@@ -137,7 +250,10 @@ export default function App() {
       </View>
 
       <View style={styles.boton}>
-        <Button title="Práctica Componente 1" onPress={() => setScreen('componente1')} />
+        <Button
+          title="Práctica Componente 1"
+          onPress={() => setScreen('componente1')}
+        />
       </View>
 
       <View style={styles.boton}>
@@ -150,6 +266,16 @@ export default function App() {
 
       <View style={styles.boton}>
         <Button title="Switch" onPress={() => setScreen('switch')} />
+      </View>
+
+      {/* Práctica equipo 3: TextInput */}
+      <View style={styles.boton}>
+        <Button title="TextInput" onPress={() => setScreen('textinput')} />
+      </View>
+
+      {/* Práctica equipo 3: Alert */}
+      <View style={styles.boton}>
+        <Button title="Alert" onPress={() => setScreen('alert')} />
       </View>
 
       <StatusBar style="auto" />
@@ -176,6 +302,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     fontWeight: 'bold',
+  },
+
+  texto: {
+    fontSize: 16,
+    marginBottom: 8,
+    textAlign: 'center',
   },
 
   boton: {
