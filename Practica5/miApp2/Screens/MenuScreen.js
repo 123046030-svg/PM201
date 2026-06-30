@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text, Button, Switch } from 'react-native';
 import React from 'react';
+
 import TarjetasScreen from './TarjetasScreen';
 import PressableScreen from './PressableScreen';
 import Componente1 from '../Componente1';
 import ComponenteAlert from './ComponenteAlert';
+import FlatListScreen from './FlatListScreen';
+import SectionListScreen from './SectionListScreen';
 
 export default function MenuScreen() {
   const [screen, setScreen] = React.useState('menu');
@@ -23,29 +26,61 @@ export default function MenuScreen() {
     case 'alert':
       return <ComponenteAlert />;
 
+    case 'flatlist':
+      return (
+        <FlatListScreen volverMenu={() => setScreen('menu')} />
+      );
+
+    case 'sectionlist':
+      return (
+        <SectionListScreen volverMenu={() => setScreen('menu')} />
+      );
+
     case 'menu':
     default:
       return (
         <View style={styles.container}>
           <Text style={styles.titulo}>Menú de prácticas</Text>
 
-          <Button title="Tarjetas" onPress={() => setScreen('tarjetas')} />
+          <Button
+            title="Tarjetas"
+            onPress={() => setScreen('tarjetas')}
+          />
 
           <Button
             title="Práctica Componente 1"
             onPress={() => setScreen('componente1')}
           />
 
-          <Button title="Pressable" onPress={() => setScreen('pressable')} />
+          <Button
+            title="Pressable"
+            onPress={() => setScreen('pressable')}
+          />
 
-          <Button title="Alert" onPress={() => setScreen('alert')} />
+          <Button
+            title="Alert"
+            onPress={() => setScreen('alert')}
+          />
+
+          <Button
+            title="FlatList"
+            onPress={() => setScreen('flatlist')}
+          />
+
+          <Button
+            title="SectionList"
+            onPress={() => setScreen('sectionlist')}
+          />
 
           <View style={styles.switchContainer}>
             <Text style={styles.texto}>
               Switch: {encendido ? 'Encendido' : 'Apagado'}
             </Text>
 
-            <Switch value={encendido} onValueChange={setEncendido} />
+            <Switch
+              value={encendido}
+              onValueChange={setEncendido}
+            />
           </View>
 
           <StatusBar style="auto" />
@@ -66,6 +101,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     marginBottom: 20,
+    fontWeight: 'bold',
   },
 
   switchContainer: {
